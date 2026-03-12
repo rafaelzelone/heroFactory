@@ -1,0 +1,16 @@
+:root {
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04';
+}
+
+h1, h2, .titulo-herois, .btn-criar {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+  letter-spacing: -0.02em;
+}
+
+body {
+  background-color: #fcf9f5; 
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased; 
+}
