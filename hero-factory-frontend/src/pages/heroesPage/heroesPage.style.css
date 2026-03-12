@@ -1,0 +1,42 @@
+.heroes-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px); 
+  width: 100%;
+}
+
+.empty-state{
+  width: 100%;
+  text-align: center;
+  color: #bbbbbb;
+}
+
+.heroes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 80px;
+  width: 100%;
+  justify-items: center;
+  flex-grow: 1; 
+}
+
+.heroes-conteiner {
+  display: grid;
+  gap: 80px;
+  width: 100%;
+  justify-items: center;
+  flex-grow: 1; 
+}
+
+.pagination-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+@media (max-width: 1024px) {
+  .heroes-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .heroes-grid { grid-template-columns: repeat(2, 1fr); }
+}

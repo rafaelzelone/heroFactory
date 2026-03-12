@@ -1,0 +1,28 @@
+.confirm-modal-content {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.confirm-message {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: white;
+  border: #d9534f;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
