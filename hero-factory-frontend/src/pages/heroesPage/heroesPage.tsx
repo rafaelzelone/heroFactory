@@ -46,7 +46,7 @@ const HeroesPage: React.FC = () => {
   const loadHeroes = async (page: number = 1) => {
     try {
       setLoading(true);
-
+        console.log(page)
       const data = await listHeroes(searchTerm, page);
 
       setHeroes(data.heroes);

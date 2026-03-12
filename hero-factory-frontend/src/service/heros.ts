@@ -4,6 +4,8 @@ import api from "./api";
 export const listHeroes = async (name?: string, page: number = 1): Promise<HeroesResponse> => {
   const params: any = { page };
 
+  console.log(page)
+
   if (name) {
     params.name = name;
   }

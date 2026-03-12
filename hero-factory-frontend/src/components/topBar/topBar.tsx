@@ -24,7 +24,7 @@ const TopBar: React.FC<TopBarProps> = ({ onSearchChange, onSearchClick, onCreate
         />
       </div>
 
-      <button className="btn-search" onClick={onSearchClick}>
+      <button className="btn-search" onClick={() => onSearchClick()}>
         Buscar
       </button>
     </div>
