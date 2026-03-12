@@ -1,7 +1,7 @@
 import request from 'supertest';
-import { app } from '../server'; 
+import { app } from '../../server'; 
 import { describe, it, expect, beforeAll } from '@jest/globals';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../../lib/prisma';
 
 describe('Hero API - Integration Tests', () => {
   let createdHeroId: string; 
@@ -14,8 +14,12 @@ describe('Hero API - Integration Tests', () => {
     const response = await request(app)
       .post('/heroes')
       .send({
-        name: 'Batman',
-        power: 'Intelligence',
+        name: 'Bruce Wayne',
+        heroName: 'Batman',
+        mainPower: 'Intelligence',
+        universe: 'DC',
+        dateBirth: '1939-05-27T00:00:00.000Z',
+        avatarUrl: 'https://example.com/batman.jpg',
         active: true
       });
 
@@ -24,23 +28,30 @@ describe('Hero API - Integration Tests', () => {
     createdHeroId = response.body.id;
   });
 
-  it('should list all heroes', async () => {
-    const response = await request(app).get('/heroes');
-    expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBe(true);
-  });
+it('should list all heroes', async () => {
+  const response = await request(app).get('/heroes');
+  expect(response.status).toBe(200);
+  
+  const heroes = response.body.heroes || response.body; 
+  
+  expect(Array.isArray(heroes)).toBe(true);
+  expect(heroes.length).toBeGreaterThan(0);
+});
 
   it('should update an existing hero', async () => {
     const response = await request(app)
       .put(`/heroes/${createdHeroId}`)
       .send({
-        name: 'Batman Updated',
-        power: 'Tech',
+        name: 'Bruce Wayne Updated',
+        heroName: 'The Dark Knight',
+        mainPower: 'Wealth',
+        universe: 'DC',
+        dateBirth: '1939-05-27T00:00:00.000Z',
         active: true
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.name).toBe('Batman Updated');
+    expect(response.body.heroName).toBe('The Dark Knight');
   });
 
   it('should toggle hero active status', async () => {

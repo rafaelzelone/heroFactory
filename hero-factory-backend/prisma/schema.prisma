@@ -8,16 +8,16 @@ datasource db {
 }
 
 model Hero {
-  id            String   @id @default(uuid())
-  name          String
-  nickname      String
-  date_of_birth DateTime
-  universe      String
-  main_power    String
-  avatar_url    String
-  is_active     Boolean  @default(true)
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  heroName    String   @map("hero_name")
+  dateBirth   DateTime @map("date_of_birth")
+  universe    String
+  mainPower   String   @map("main_power")
+  avatarUrl   String   @map("avatar_url")
+  active      Boolean  @default(true) @map("is_active")
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("heroes")
 }

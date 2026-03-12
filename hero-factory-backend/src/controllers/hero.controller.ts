@@ -27,6 +27,7 @@ export const HeroController = {
             const hero = await HeroService.create(req.body);
             return res.status(201).json(hero);
         } catch (error) {
+            console.log(error)
             return res.status(400).json({ error: "Error creating hero" });
         }
     },

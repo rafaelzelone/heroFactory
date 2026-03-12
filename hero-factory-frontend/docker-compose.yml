@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: ./hero-factory-frontend
+    container_name: hero_web
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:
