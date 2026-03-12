@@ -19,7 +19,7 @@ export const HeroService = {
     const whereClause = {
       OR: [
         { name: { contains: search } },
-        { nickname: { contains: search } }
+        { heroName: { contains: search } }
       ]
     };
 
@@ -48,18 +48,27 @@ export const HeroService = {
 
   /**
    * Creates a new hero record.
-   * * @param data - The hero data (automatically converts date_of_birth string to Date object).
+   * * @param data - The hero data (automatically converts dateBirth string to Date object).
    * @returns The created hero object.
    */
   async create(data: any) {
+    const birthDate = new Date(data.dateBirth);
+
+    if (isNaN(birthDate.getTime())) {
+      throw new Error("Invalid birthDate");
+    }
+
     return await prisma.hero.create({
       data: {
-        ...data,
-        date_of_birth: new Date(data.date_of_birth)
+        name: data.name,
+        heroName: data.heroName,
+        dateBirth: birthDate,
+        universe: data.universe,
+        mainPower: data.mainPower,
+        avatarUrl: data.avatarUrl
       }
     });
   },
-
   /**
    * Updates an existing hero by ID.
    * Validates if the hero exists and is currently active before updating.
@@ -73,19 +82,19 @@ export const HeroService = {
     const hero = await prisma.hero.findUnique({ where: { id } });
 
     if (!hero) throw new Error("HERO_NOT_FOUND");
-    if (!hero.is_active) throw new Error("HERO_INACTIVE");
+    if (!hero.active) throw new Error("HERO_INACTIVE");
 
     return await prisma.hero.update({
       where: { id },
       data: {
         ...data,
-        date_of_birth: data.date_of_birth ? new Date(data.date_of_birth) : hero.date_of_birth
+        dateBirth: data.dateBirth ? new Date(data.dateBirth) : hero.dateBirth
       }
     });
   },
 
   /**
-   * Inverts the 'is_active' status of a hero (Enable/Disable).
+   * Inverts the 'active' status of a hero (Enable/Disable).
    * * @param id - The unique identifier of the hero.
    * @throws Error "HERO_NOT_FOUND" if ID doesn't exist.
    * @returns The hero object with the toggled status.
@@ -96,7 +105,7 @@ export const HeroService = {
 
     return await prisma.hero.update({
       where: { id },
-      data: { is_active: !hero.is_active }
+      data: { active: !hero.active }
     });
   },
 

@@ -13,5 +13,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  api:
+    build: .
+    container_name: hero_factory_backend
+    restart: always
+    ports:
+      - "3333:3333"
+    environment:
+      PORT: 3333
+    depends_on:
+      - db
+
 volumes:
   mysql_data:
